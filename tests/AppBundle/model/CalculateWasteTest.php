@@ -30,17 +30,14 @@ class CalculateWasteTest extends TestCase
         BoxGenerator::generateBoxes($this->box);
         $this->aAllWidthTab = $this->box->getTabWithWidthSize();
         $this->aAllHighTab = $this->box->getTabWithHighSize();
-        $this->sheetArea = $this->sheetFormat->getAreaSheet();
     }
 
     public function testCalculateMaxAreaBoxes()
     {
-        $calculateWaste = new CalculateWaste();
-        $calculateWaste->calculateMaxAreaBoxes($this->aAllHighTab, $this->aAllWidthTab, $this->sheetArea);
+        $calculateWaste = new CalculateWaste($this->sheetFormat);
+        $calculateWaste->calculateMaxAreaBoxes($this->aAllHighTab, $this->aAllWidthTab);
         $actualAreaWalls = $calculateWaste->getAreaAllWallBoxes();
-        $actualSheetArea = $this->sheetArea;
         $this->assertEquals(3125000, $actualAreaWalls);
-        $this->assertEquals(3125000, $actualSheetArea);
 
     }
 }

@@ -11,46 +11,93 @@ namespace model;
 
 class CalculateWaste
 {
-
+    private $sheetFormat;
     private $areaWaste;
     private $areaAllWallBoxes;
 
     /**
      * CalculateWaste constructor.
+     * @param SheetFormat $sheetFormat
      */
-    public function __construct()
+    public function __construct(SheetFormat $sheetFormat)
     {
+        $this->sheetFormat = $sheetFormat;
     }
 
-    public function calculateMaxAreaBoxes(array $aAllHighTab, array $aAllWidthTab, int $sheetArea)
+    public function calculateMaxAreaBoxes(array $aAllHighTab, array $aAllWidthTab)
     {
         $this->setAreaAllWallBoxes(0);
-        $this->calculateAreaWall($aAllHighTab, $aAllWidthTab, $sheetArea);
+        $tabWithWallsField = $this->getWallsFieldTab($aAllHighTab, $aAllWidthTab);
+        $usedWallsTab = $this->getTabWithUsedWalls($tabWithWallsField);
+        $sheetField = $this->getSheetField();
+        $this->calculateMaxFieldWalls($tabWithWallsField, $usedWallsTab, $sheetField);
     }
 
-
-    private function calculateAreaWall(array $allWidthTab, array $allHighTab, int $sheetArea)
+    public function calculateMaxFieldWalls(array $tabWithWallsField,
+                                           array $usedWallsTab, int $sheetField)
     {
         $counter = 0;
-        while ($counter < count($allWidthTab)) {
-            $widthWall = isset($allWidthTab[$counter])
-                ? $allWidthTab[$counter] : null;
-            $highWall = isset($allHighTab[$counter])
-                ? $allHighTab[$counter] : null;
-            $areOneWall = $widthWall * $highWall;
-            $tempAreaWalls = $this->getAreaAllWallBoxes() + $areOneWall;
-            $counter++;
-            $tempCounter = $counter + 1;
-            if ($tempAreaWalls > $sheetArea) {
-                //check others walls
-                break;
-            }
-            $this->sumAreaAllWallBoxes($areOneWall);
+        while ($counter < count($tabWithWallsField)) {
+            $fieldOneWall = $tabWithWallsField[$counter];
+            $actualFieldBoxes = $this->getAreaAllWallBoxes();
+            $tempWallsField = $actualFieldBoxes + $fieldOneWall;
 
-            if ($this->getAreaAllWallBoxes() == $sheetArea) {
+            $counter++;
+            if ($tempWallsField > $sheetField) {
+                $this->addSmallField($tabWithWallsField,
+                    $usedWallsTab, $counter, $sheetField);
+
                 break;
             }
+            $this->sumAreaAllWallBoxes($fieldOneWall);
+            if ($this->getAreaAllWallBoxes() == $sheetField) {
+                break;
+            }
+
         }
+    }
+
+    private function addSmallField(array $tabWithWallsField,
+                                   array $usedWallsTab, int $counter, int $sheetField)
+    {
+        $usedWallsTab = array_fill(0, $counter, "true");
+        while ($counter < count($tabWithWallsField)) {
+            $fieldSmallWall = $tabWithWallsField[$counter];
+            $waste = $sheetField - $this->getAreaAllWallBoxes();
+            if ($fieldSmallWall <= $waste) {
+                $this->sumAreaAllWallBoxes($fieldSmallWall);
+                $usedWallsTab[$counter] = true;
+            }
+            $counter++;
+        }
+    }
+
+    private function getWallsFieldTab(array $allWidthTab, array $allHighTab): array
+    {
+        $tabWithWallsField = [];
+
+        for ($i = 0; $i < count($allWidthTab); $i++) {
+            $widthWall = isset($allWidthTab[$i])
+                ? $allWidthTab[$i] : null;
+            $highWall = isset($allHighTab[$i])
+                ? $allHighTab[$i] : null;
+            $areOneWall = $widthWall * $highWall;
+            $tabWithWallsField[$i] = $areOneWall;
+        }
+        arsort($tabWithWallsField);
+        return $tabWithWallsField;
+    }
+
+    private function getTabWithUsedWalls(array $tabWithWallsField): array
+    {
+        $size = count($tabWithWallsField);
+        $usedWalls = array_fill(0, $size, "false");
+        return $usedWalls;
+    }
+
+    private function getSheetField(): int
+    {
+        return $this->sheetFormat->getSheetHigh() * $this->sheetFormat->getSheetWeight();
     }
 
     /**
