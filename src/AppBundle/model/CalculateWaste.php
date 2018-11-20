@@ -11,6 +11,8 @@ namespace model;
 
 class CalculateWaste
 {
+    //area 'króćca fi 50' calculate: 25mm*3,1416.
+    const AREA_ONE_STUB_TUBE = 78.54;
     private $sheetFormat;
     private $areaWaste;
     private $areaAllWallBoxes;
@@ -24,13 +26,18 @@ class CalculateWaste
         $this->sheetFormat = $sheetFormat;
     }
 
-    public function calculateMaxAreaBoxes(array $aAllHighTab, array $aAllWidthTab)
+    public function calculateMaxAreaBoxes(array $aAllHighTab, array $aAllWidthTab, array $tabWithQuantityStubTube)
     {
         $this->setAreaAllWallBoxes(0);
         $tabWithWallsField = $this->getWallsFieldTab($aAllHighTab, $aAllWidthTab);
         $usedWallsTab = $this->getTabWithUsedWalls($tabWithWallsField);
         $sheetField = $this->getSheetField();
         $this->calculateMaxFieldWalls($tabWithWallsField, $usedWallsTab, $sheetField);
+        $wasteWithStubTube = $this->getStubTubeField($tabWithQuantityStubTube);
+        $maxFieldWalls = $this->getAreaAllWallBoxes();
+        $waste = ($sheetField - $maxFieldWalls) + $wasteWithStubTube;
+        $this->setAreaWaste($waste);
+
     }
 
     public function calculateMaxFieldWalls(array $tabWithWallsField,
@@ -46,7 +53,6 @@ class CalculateWaste
             if ($tempWallsField > $sheetField) {
                 $this->addSmallField($tabWithWallsField,
                     $usedWallsTab, $counter, $sheetField);
-
                 break;
             }
             $this->sumAreaAllWallBoxes($fieldOneWall);
@@ -55,6 +61,13 @@ class CalculateWaste
             }
 
         }
+    }
+
+    private function getStubTubeField(array $quantityStubTubeTab): int
+    {
+        $quantityStubTubes = array_sum($quantityStubTubeTab);
+        $stubTubesField = CalculateWaste::AREA_ONE_STUB_TUBE * $quantityStubTubes;
+        return $stubTubesField;
     }
 
     private function addSmallField(array $tabWithWallsField,
@@ -94,6 +107,7 @@ class CalculateWaste
         $usedWalls = array_fill(0, $size, "false");
         return $usedWalls;
     }
+
 
     private function getSheetField(): int
     {
