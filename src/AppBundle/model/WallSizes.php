@@ -34,7 +34,6 @@ class WallSizes
 
     private function createTablesWithKeys(array $tabWithBoxes, array $allKeysTab)
     {
-
         $sizeTab = count($allKeysTab);
         $index = (int)($sizeTab / 2);
 
