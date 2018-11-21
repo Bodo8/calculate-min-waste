@@ -29,45 +29,48 @@ class WallSizes
     {
         $tabWithBoxes = $this->box->getTabWithBoxes();
         $allKeysTab = $this->getTabWithAllKeys($tabWithBoxes);
-        $this->createTablesHighWidth($tabWithBoxes, $allKeysTab);
-
+        $this->createTablesWithKeys($tabWithBoxes, $allKeysTab);
     }
 
-    private function createTablesHighWidth(array $tabWithBoxes, array $allKeysTab)
+    private function createTablesWithKeys(array $tabWithBoxes, array $allKeysTab)
     {
-        $aAllHighTab = [];
-        $aAllWidthTab = [];
-        $bAllHighTam = [];
-        $bAllWidthTab = [];
-        $cAllHighTam = [];
-        $cAllWidthTab = [];
-        $stubTubeTab = [];
 
-        $keyIndex = count($allKeysTab);
-        $keyAH = (string)$allKeysTab[$keyIndex - 7];
-        $keyAW = (string)$allKeysTab[$keyIndex - 6];
-        $keyBH = (string)$allKeysTab[$keyIndex - 5];
-        $keyBW = (string)$allKeysTab[$keyIndex - 4];
-        $keyCH = (string)$allKeysTab[$keyIndex - 3];
-        $keyCW = (string)$allKeysTab[$keyIndex - 2];
-        $keyQ = (string)$allKeysTab[$keyIndex - 1];
+        $sizeTab = count($allKeysTab);
+        $index = (int)($sizeTab / 2);
 
-        $index = 0;
-        foreach ($tabWithBoxes as $wall) {
-            $aAllHighTab[$index] = $wall[$keyAH];
-            $aAllWidthTab[$index] = $wall[$keyAW];
-            $bAllHighTam[$index] = $wall[$keyBH];
-            $bAllWidthTab[$index] = $wall[$keyBW];
-            $cAllHighTam[$index] = $wall[$keyCH];
-            $cAllWidthTab[$index] = $wall[$keyCW];
-            $stubTubeTab[$index] = $wall[$keyQ];
-            $index++;
+        for ($k = 0; $k < $index; $k++) {
+            $tempOneSize = [];
+            $temp = $k;
+
+            for ($i = $temp; $i < count($allKeysTab) - 1; $i++) {
+                $key = $allKeysTab[$i];
+                if ($temp == 2) {
+                    $key = $allKeysTab[$sizeTab - 1];
+                    $i = $sizeTab;
+                }
+
+                $i++;
+                $count = 0;
+                foreach ($tabWithBoxes as $size) {
+                    $tempOneSize[$count] = $size[$key];
+                    $count++;
+                }
+
+                if ($k == 0) {
+                    $counter = $k;
+                    $this->mergeTabs($tempOneSize, $counter);
+                }
+                if ($k == 1) {
+                    $counter = $k;
+                    $this->mergeTabs($tempOneSize, $counter);
+                }
+                if ($k == 2) {
+                    $counter = $k;
+                    $this->mergeTabs($tempOneSize, $counter);
+                }
+            }
+
         }
-        $highTab = array_merge($aAllHighTab, $bAllHighTam, $cAllHighTam);
-        $widthTab = array_merge($aAllWidthTab, $bAllWidthTab, $cAllWidthTab);
-        $this->setTabWithHighSize($highTab);
-        $this->setTabWithWidthSize($widthTab);
-        $this->setTabWithQuantityStubTube($stubTubeTab);
     }
 
     private function getTabWithAllKeys(array $tabWithBoxes): array
@@ -76,6 +79,22 @@ class WallSizes
         return array_keys($wallsTab);
     }
 
+    private function mergeTabs(array $oneSizesTab, int $counter): void
+    {
+        if ($counter == 0) {
+            $tabWithHighSize = $this->getTabWithHighSize();
+            $this->setTabWithHighSize(array_merge($tabWithHighSize, $oneSizesTab));
+        }
+        if ($counter == 1) {
+            $tabWithWidthSize = $this->getTabWithWidthSize();
+            $this->setTabWithWidthSize(array_merge($tabWithWidthSize, $oneSizesTab));
+        }
+
+        if ($counter == 2) {
+            $stubTubeTab = $this->getTabWithQuantityStubTube();
+            $this->setTabWithQuantityStubTube(array_merge($stubTubeTab, $oneSizesTab));
+        }
+    }
 
     /**
      * @return array

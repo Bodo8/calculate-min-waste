@@ -38,10 +38,10 @@ class WallSizesTest extends TestCase
         $highTab = $wallSizes->getTabWithHighSize();
         $widthTab = $wallSizes->getTabWithWidthSize();
         $stubTubeTab = $wallSizes->getTabWithQuantityStubTube();
-        $actualFirstSize = $highTab[0];
+        $actualFirstHighSize = $highTab[0];
         $actualFirstWidth = $widthTab[0];
         $actualFirstStubTub = $stubTubeTab[0];
-        $this->assertEquals($expectedFirstSize, $actualFirstSize);
+        $this->assertEquals($expectedFirstSize, $actualFirstHighSize);
         $this->assertEquals($expectedFirstWidth, $actualFirstWidth);
         $this->assertEquals($expectedFirstStubTub, $actualFirstStubTub);
 
