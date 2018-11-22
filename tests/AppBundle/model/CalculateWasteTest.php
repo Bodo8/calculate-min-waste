@@ -18,29 +18,32 @@ class CalculateWasteTest extends TestCase
     private $sheetFormat;
     private $aAllWidthTab;
     private $aAllHighTab;
-    private $sheetArea;
+    private $quantityStubTubeTab;
+    private $wallSizes;
 
 
     public function setUp()
     {
         $this->sizeChecker = new SizeChecker();
         $this->sheetFormat = new SheetFormat();
-        $this->sheetFormat->addSheetFormat(2500, 1250, $this->sizeChecker);
         $this->box = new Box();
+        $this->wallSizes = new WallSizes($this->box);
+        $this->sheetFormat->addSheetFormat(2500, 1250, $this->sizeChecker);
         BoxGenerator::generateBoxes($this->box);
-        $this->aAllWidthTab = $this->box->getTabWithWidthSize();
-        $this->aAllHighTab = $this->box->getTabWithHighSize();
-        $this->sheetArea = $this->sheetFormat->getAreaSheet();
+        $this->wallSizes->createTabsWithSizes();
+        $this->aAllWidthTab = $this->wallSizes->getTabWithWidthSize();
+        $this->aAllHighTab = $this->wallSizes->getTabWithHighSize();
+        $this->quantityStubTubeTab = $this->wallSizes->getTabWithQuantityStubTube();
     }
 
     public function testCalculateMaxAreaBoxes()
     {
-        $calculateWaste = new CalculateWaste();
-        $calculateWaste->calculateMaxAreaBoxes($this->aAllHighTab, $this->aAllWidthTab, $this->sheetArea);
+        $calculateWaste = new CalculateWaste($this->sheetFormat);
+        $calculateWaste->calculateMaxAreaBoxes($this->aAllHighTab, $this->aAllWidthTab, $this->quantityStubTubeTab);
         $actualAreaWalls = $calculateWaste->getAreaAllWallBoxes();
-        $actualSheetArea = $this->sheetArea;
-        $this->assertEquals(3125000, $actualAreaWalls);
-        $this->assertEquals(3125000, $actualSheetArea);
+        $actualWaste = $calculateWaste->getAreaWaste();
+        $this->assertEquals(3122500, $actualAreaWalls);
+        $this->assertEquals(17265, $actualWaste);
 
     }
 }
