@@ -15,13 +15,11 @@ class BoxTest extends TestCase
 
     private $box;
     private $sizeChecker;
-    private $sheetFormat;
 
     public function setUp()
     {
-        $this->sizeChecker = new SizeChecker();
-        $this->sheetFormat = new SheetFormat();
         $this->box = new Box();
+        $this->sizeChecker = new SizeChecker();
     }
 
     public function testAddBox()
@@ -35,6 +33,15 @@ class BoxTest extends TestCase
         $actualSizeA = $oneBoxTab["wallAOfTheBoxHigh"];
         $this->assertEquals($expectSizeA, $actualSizeA);
 
+    }
+
+    public function testAddBoxWith0size()
+    {
+        $this->expectException("\InvalidArgumentException");
+        $this->box->addBox(450, 0,
+            200, 300,
+            200, 300, 2, $this->sizeChecker);
+        $this->fail("the side length must be greater than zero");
     }
 
 }

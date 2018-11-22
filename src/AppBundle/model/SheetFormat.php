@@ -13,7 +13,7 @@ class SheetFormat
 {
 
     private $sheetHigh;
-    private $sheetWeight;
+    private $sheetWidth;
 
     /**
      * SheetFormat constructor.
@@ -26,15 +26,15 @@ class SheetFormat
     /**
      * SheetFormat constructor.
      * @param $sheetHigh
-     * @param $sheetWeight
+     * @param $sheetWidth
      * @param SizeChecker $sizeChecker
      */
-    public function addSheetFormat($sheetHigh, $sheetWeight, SizeChecker $sizeChecker): void
+    public function addSheetFormat($sheetHigh, $sheetWidth, SizeChecker $sizeChecker): void
     {
         $this->sheetHigh = $sheetHigh;
-        $this->sheetWeight = $sheetWeight;
-        if (!$sizeChecker->checkSides($sheetHigh, $sheetWeight)) {
-            $this->setSheetHigh($sheetWeight);
+        $this->sheetWidth = $sheetWidth;
+        if (!$sizeChecker->checkSides($sheetHigh, $sheetWidth)) {
+            $this->setSheetHigh($sheetWidth);
             $this->setSheetWeight($sheetHigh);
         }
     }
@@ -52,14 +52,14 @@ class SheetFormat
         $this->sheetHigh = $sheetHigh;
     }
 
-    public function getSheetWeight(): int
+    public function getSheetWidth(): int
     {
-        return $this->sheetWeight;
+        return $this->sheetWidth;
     }
 
     private function setSheetWeight(int $sheetWeight): void
     {
-        $this->sheetWeight = $sheetWeight;
+        $this->sheetWidth = $sheetWeight;
     }
 
 }

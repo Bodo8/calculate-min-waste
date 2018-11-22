@@ -24,8 +24,11 @@ class SheetFormatTest extends TestCase
     public function testGetSheetHigh()
     {
         $expectSideHigh = 2500;
+        $expectSideWidth = 1250;
         $actualSideHigh = $this->sheet->getSheetHigh();
+        $actualSideWidth = $this->sheet->getSheetWidth();
         $this->assertEquals($expectSideHigh, $actualSideHigh);
+        $this->assertEquals($expectSideWidth, $actualSideWidth);
 
     }
 }

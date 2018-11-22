@@ -111,7 +111,7 @@ class CalculateWaste
 
     private function getSheetField(): int
     {
-        return $this->sheetFormat->getSheetHigh() * $this->sheetFormat->getSheetWeight();
+        return $this->sheetFormat->getSheetHigh() * $this->sheetFormat->getSheetWidth();
     }
 
     /**
