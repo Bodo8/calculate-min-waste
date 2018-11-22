@@ -39,12 +39,7 @@ class SheetFormat
         }
     }
 
-    public function getAreaSheet(): int
-    {
-        return $this->getSheetHigh() * $this->getSheetWeight();
-    }
-
-    private function getSheetHigh(): int
+    public function getSheetHigh(): int
     {
         return $this->sheetHigh;
     }
@@ -57,7 +52,7 @@ class SheetFormat
         $this->sheetHigh = $sheetHigh;
     }
 
-    private function getSheetWeight(): int
+    public function getSheetWeight(): int
     {
         return $this->sheetWeight;
     }
