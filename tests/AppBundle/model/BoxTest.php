@@ -21,17 +21,18 @@ class BoxTest extends TestCase
     {
         $this->sizeChecker = new SizeChecker();
         $this->sheetFormat = new SheetFormat();
-        $this->sheetFormat->addSheetFormat(2500, 1250, $this->sizeChecker);
-        $this->box = new Box(450, 600,
-            200, 300,
-            200, 300, 2,
-            $this->sizeChecker);
+        $this->box = new Box();
     }
 
     public function testAddBox()
     {
+        $this->box->addBox(450, 600,
+            200, 300,
+            200, 300, 2, $this->sizeChecker);
         $expectSizeA = 450;
-        $actualSizeA = $this->box->getWallAOfTheBoxWidth();
+        $boxesTab = $this->box->getTabWithBoxes();
+        $oneBoxTab = $boxesTab[0];
+        $actualSizeA = $oneBoxTab["wallAOfTheBoxHigh"];
         $this->assertEquals($expectSizeA, $actualSizeA);
 
     }
