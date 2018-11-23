@@ -11,7 +11,7 @@ namespace model;
 
 class CalculateWaste
 {
-    //area 'króćca fi 50' calculate: 25mm*3,1416.
+    //field stub tube(króćca) fi 50, result of the calculation: 25mm*3,1416.
     const AREA_ONE_STUB_TUBE = 78.54;
     private $sheetFormat;
     private $areaWaste;
@@ -19,13 +19,18 @@ class CalculateWaste
 
     /**
      * CalculateWaste constructor.
-     * @param SheetFormat $sheetFormat
+     * @param SheetFormat $sheetFormat - object SheetFormat class.
      */
     public function __construct(SheetFormat $sheetFormat)
     {
         $this->sheetFormat = $sheetFormat;
     }
 
+    /**
+     * @param array $aAllHighTab - tab with all heights of the all of the boxes.
+     * @param array $aAllWidthTab - tab with all widths of the all of the boxes.
+     * @param array $tabWithQuantityStubTube - tab with all quantities stub tube of the boxes.
+     */
     public function calculateMaxAreaBoxes(array $aAllHighTab, array $aAllWidthTab, array $tabWithQuantityStubTube)
     {
         $this->setAreaAllWallBoxes(0);
@@ -40,8 +45,8 @@ class CalculateWaste
 
     }
 
-    public function calculateMaxFieldWalls(array $tabWithWallsField,
-                                           array $usedWallsTab, int $sheetField)
+    private function calculateMaxFieldWalls(array $tabWithWallsField,
+                                            array $usedWallsTab, int $sheetField)
     {
         $counter = 0;
         while ($counter < count($tabWithWallsField)) {
@@ -115,7 +120,7 @@ class CalculateWaste
     }
 
     /**
-     * @return mixed
+     * @return mixed - return tab with all wall fields, all boxes.
      */
     public function getAreaAllWallBoxes(): int
     {
@@ -123,7 +128,7 @@ class CalculateWaste
     }
 
     /**
-     * @param $areaAllWall
+     * @param $areaAllWall - tab with sum wall fields, all boxes.
      */
     private function sumAreaAllWallBoxes($areaAllWall): void
     {
@@ -132,7 +137,7 @@ class CalculateWaste
     }
 
     /**
-     * @param mixed $areaAllWallBoxes
+     * @param mixed $areaAllWallBoxes - sets the actual value of the wall field.
      */
     private function setAreaAllWallBoxes($areaAllWallBoxes): void
     {

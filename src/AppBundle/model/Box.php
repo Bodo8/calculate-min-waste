@@ -20,14 +20,14 @@ class Box
     }
 
     /**
-     * add side selections for shorter and longer ones.
-     * @param int $wallAOfTheBoxHigh
-     * @param int $wallAOfTheBoxWidth
-     * @param int $wallBOfTheBoxHigh
-     * @param int $wallBOfTheBoxWidth
-     * @param int $wallCOfTheBoxHigh
-     * @param int $wallCOfTheBoxWidth
-     * @param int $quantityStubTube
+     * add new box to the tab.
+     * @param int $wallAOfTheBoxHigh - wall height A one box.
+     * @param int $wallAOfTheBoxWidth - wall width A one box.
+     * @param int $wallBOfTheBoxHigh - wall height B one box.
+     * @param int $wallBOfTheBoxWidth - wall width B one box.
+     * @param int $wallCOfTheBoxHigh - wall height C one box.
+     * @param int $wallCOfTheBoxWidth - wall width C one box.
+     * @param int $quantityStubTube - quantity stub tube one box.
      */
     public function addBox(int $wallAOfTheBoxHigh, int $wallAOfTheBoxWidth,
                            int $wallBOfTheBoxHigh, int $wallBOfTheBoxWidth,
@@ -52,7 +52,7 @@ class Box
     }
 
     /**
-     * @return array
+     * @return array - tan with all boxes.
      */
     public function getTabWithBoxes(): array
     {
