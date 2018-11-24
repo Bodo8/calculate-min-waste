@@ -6,6 +6,8 @@
  * Time: 22:02
  */
 
+declare(strict_types=1);
+
 namespace Model;
 
 use PHPUnit\Framework\TestCase;

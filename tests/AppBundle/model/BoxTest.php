@@ -6,6 +6,8 @@
  * Time: 21:27
  */
 
+declare(strict_types=1);
+
 namespace Model;
 
 use PHPUnit\Framework\TestCase;
@@ -40,7 +42,7 @@ class BoxTest extends TestCase
         $this->expectException("\InvalidArgumentException");
         $this->box->addBox(450, 0,
             200, 300,
-            200, 300, -1);
+            200, 300, 8);
         $this->fail("the side length must be greater than zero,
             or quantity stub tube can be 0");
     }

@@ -35,9 +35,8 @@ class CalculateWaste
     {
         $this->setAreaAllWallBoxes(0);
         $tabWithWallsField = $this->getWallsFieldTab($aAllHighTab, $aAllWidthTab);
-        $usedWallsTab = $this->getTabWithUsedWalls($tabWithWallsField);
         $sheetField = $this->getSheetField();
-        $this->calculateMaxFieldWalls($tabWithWallsField, $usedWallsTab, $sheetField);
+        $this->calculateMaxFieldWalls($tabWithWallsField, $sheetField);
         $wasteWithStubTube = $this->getStubTubeField($tabWithQuantityStubTube);
         $maxFieldWalls = $this->getAreaAllWallBoxes();
         $waste = ($sheetField - $maxFieldWalls) + $wasteWithStubTube;
@@ -45,8 +44,7 @@ class CalculateWaste
 
     }
 
-    private function calculateMaxFieldWalls(array $tabWithWallsField,
-                                            array $usedWallsTab, int $sheetField)
+    private function calculateMaxFieldWalls(array $tabWithWallsField, int $sheetField)
     {
         $counter = 0;
         while ($counter < count($tabWithWallsField)) {
@@ -57,7 +55,7 @@ class CalculateWaste
             $counter++;
             if ($tempWallsField > $sheetField) {
                 $tempSumsFieldsTab = $this->getSumsSmallFieldsTab($tabWithWallsField,
-                    $usedWallsTab, $counter, $sheetField);
+                    $counter, $sheetField);
                 $maxSmallField = !empty($tempSumsFieldsTab) ? $tempSumsFieldsTab[0] : 0;
                 $this->sumAreaAllWallBoxes($maxSmallField);
                 break;
@@ -82,15 +80,12 @@ class CalculateWaste
 
 
     private function getSumsSmallFieldsTab(array $tabWithWallsField,
-                                           array $usedWallsTab, int $counter, int $sheetField): array
+                                           int $counter, int $sheetField): array
     {
         $sumsSmallFieldsTab = [];
         $sortSumsSmallFieldsTab = [];
         $waste = $sheetField - $this->getAreaAllWallBoxes();
-        print_r($waste);
         $sizeTab = count($tabWithWallsField);
-        print_r($sizeTab);
-
 
         for ($i = $counter; $i < $sizeTab - 1; $i++) {
             $fieldFirstWall = $tabWithWallsField[$i];
@@ -146,14 +141,6 @@ class CalculateWaste
         return $sortTabWithWallsField;
     }
 
-    private function getTabWithUsedWalls(array $tabWithWallsField): array
-    {
-        $size = count($tabWithWallsField);
-        $usedWalls = array_fill(0, $size, "false");
-        return $usedWalls;
-    }
-
-
     private function getSheetField(): int
     {
         return $this->sheetFormat->getSheetHigh() * $this->sheetFormat->getSheetWidth();
@@ -183,7 +170,6 @@ class CalculateWaste
     {
         $this->areaAllWallBoxes = $areaAllWallBoxes;
     }
-
 
     /**
      * @return mixed
