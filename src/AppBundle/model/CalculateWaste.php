@@ -56,8 +56,13 @@ class CalculateWaste
 
             $counter++;
             if ($tempWallsField > $sheetField) {
-                $this->addSmallField($tabWithWallsField,
+                $tempSumsFieldsTab = $this->getSumsSmallFieldsTab($tabWithWallsField,
                     $usedWallsTab, $counter, $sheetField);
+                $maxSmallField = !empty($tempSumsFieldsTab) ? $tempSumsFieldsTab[0] : 0;
+                $this->sumAreaAllWallBoxes($maxSmallField);
+                break;
+            }
+            if ($tempWallsField == $sheetField) {
                 break;
             }
             $this->sumAreaAllWallBoxes($fieldOneWall);
@@ -75,35 +80,70 @@ class CalculateWaste
         return $stubTubesField;
     }
 
-    private function addSmallField(array $tabWithWallsField,
-                                   array $usedWallsTab, int $counter, int $sheetField)
+
+    private function getSumsSmallFieldsTab(array $tabWithWallsField,
+                                           array $usedWallsTab, int $counter, int $sheetField): array
     {
-        $usedWallsTab = array_fill(0, $counter, "true");
-        while ($counter < count($tabWithWallsField)) {
-            $fieldSmallWall = $tabWithWallsField[$counter];
-            $waste = $sheetField - $this->getAreaAllWallBoxes();
-            if ($fieldSmallWall <= $waste) {
-                $this->sumAreaAllWallBoxes($fieldSmallWall);
-                $usedWallsTab[$counter] = true;
+        $sumsSmallFieldsTab = [];
+        $sortSumsSmallFieldsTab = [];
+        $waste = $sheetField - $this->getAreaAllWallBoxes();
+        print_r($waste);
+        $sizeTab = count($tabWithWallsField);
+        print_r($sizeTab);
+
+
+        for ($i = $counter; $i < $sizeTab - 1; $i++) {
+            $fieldFirstWall = $tabWithWallsField[$i];
+
+            $indexInside = $sizeTab;
+            $smallWallsSum = $fieldFirstWall;
+            if ($fieldFirstWall < $waste) {
+                while ($indexInside > $counter + 1) {
+                    $nextFieldWall = $tabWithWallsField[$indexInside - 1];
+
+                    $tempSum = $smallWallsSum + $nextFieldWall;
+                    if ($tempSum < $waste) {
+                        $smallWallsSum += $nextFieldWall;
+                        $sumsSmallFieldsTab[] = $smallWallsSum;
+                    } else {
+                        if ($tempSum > $waste) {
+                            $sumsSmallFieldsTab[] = $smallWallsSum;
+                            break;
+                        }
+                        if ($tempSum == $waste) {
+                            $sumsSmallFieldsTab[] = $tempSum;
+                            break;
+                        }
+                    }
+                    $indexInside--;
+                }
             }
-            $counter++;
         }
+        rsort($sumsSmallFieldsTab);
+        foreach ($sumsSmallFieldsTab as $field) {
+            $sortSumsSmallFieldsTab[] = $field;
+        }
+        return $sortSumsSmallFieldsTab;
     }
 
     private function getWallsFieldTab(array $allWidthTab, array $allHighTab): array
     {
         $tabWithWallsField = [];
+        $sortTabWithWallsField = [];
 
         for ($i = 0; $i < count($allWidthTab); $i++) {
             $widthWall = isset($allWidthTab[$i])
                 ? $allWidthTab[$i] : null;
             $highWall = isset($allHighTab[$i])
                 ? $allHighTab[$i] : null;
-            $areOneWall = $widthWall * $highWall;
-            $tabWithWallsField[$i] = $areOneWall;
+            $fieldOneWall = $widthWall * $highWall;
+            $tabWithWallsField[$i] = $fieldOneWall;
         }
-        arsort($tabWithWallsField);
-        return $tabWithWallsField;
+        rsort($tabWithWallsField);
+        foreach ($tabWithWallsField as $field) {
+            $sortTabWithWallsField[] = $field;
+        }
+        return $sortTabWithWallsField;
     }
 
     private function getTabWithUsedWalls(array $tabWithWallsField): array

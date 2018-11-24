@@ -34,9 +34,9 @@ class Box
                            int $wallCOfTheBoxHigh, int $wallCOfTheBoxWidth,
                            int $quantityStubTube): void
     {
-        $this->checkSides($wallAOfTheBoxHigh, $wallAOfTheBoxWidth);
-        $this->checkSides($wallBOfTheBoxHigh, $wallBOfTheBoxWidth);
-        $this->checkSides($wallCOfTheBoxHigh, $wallCOfTheBoxWidth);
+        $this->checkSides($wallAOfTheBoxHigh, $wallAOfTheBoxWidth,
+            $wallBOfTheBoxHigh, $wallBOfTheBoxWidth,
+            $wallCOfTheBoxHigh, $wallCOfTheBoxWidth, $quantityStubTube);
 
         $this->tabWithBoxes[] = ["wallAOfTheBoxHigh" => $wallAOfTheBoxHigh, "wallAOfTheBoxWidth" => $wallAOfTheBoxWidth,
             "wallBOfTheBoxHigh" => $wallBOfTheBoxHigh, "wallBOfTheBoxWidth" => $wallBOfTheBoxWidth,
@@ -44,10 +44,17 @@ class Box
             "quantityStubTube" => $quantityStubTube];
     }
 
-    private function checkSides(int $sideHigh, int $sideWidth): void
+    private function checkSides(int $wallAOfTheBoxHigh, int $wallAOfTheBoxWidth,
+                                int $wallBOfTheBoxHigh, int $wallBOfTheBoxWidth,
+                                int $wallCOfTheBoxHigh, int $wallCOfTheBoxWidth,
+                                int $quantityStubTube): void
     {
-        if ($sideHigh <= 0 | $sideWidth <= 0) {
-            throw new \InvalidArgumentException("the side length must be greater than zero");
+        if ($wallAOfTheBoxHigh <= 0 | $wallAOfTheBoxWidth <= 0 |
+            $wallBOfTheBoxHigh <= 0 | $wallBOfTheBoxWidth <= 0 |
+            $wallCOfTheBoxHigh <= 0 | $wallCOfTheBoxWidth <= 0 |
+            $quantityStubTube < 0) {
+            throw new \InvalidArgumentException("the side length must be greater than zero,
+            only quantity stub tube can be 0");
         }
     }
 

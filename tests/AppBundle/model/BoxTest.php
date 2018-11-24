@@ -40,8 +40,19 @@ class BoxTest extends TestCase
         $this->expectException("\InvalidArgumentException");
         $this->box->addBox(450, 0,
             200, 300,
-            200, 300, 2, $this->sizeChecker);
-        $this->fail("the side length must be greater than zero");
+            200, 300, -1);
+        $this->fail("the side length must be greater than zero,
+            or quantity stub tube can be 0");
+    }
+
+    public function testAddBoxWithMinus1StubTube()
+    {
+        $this->expectException("\InvalidArgumentException");
+        $this->box->addBox(450, 200,
+            200, 300,
+            200, 300, -1);
+        $this->fail("the side length must be greater than zero,
+            only quantity stub tube can be 0");
     }
 
 }

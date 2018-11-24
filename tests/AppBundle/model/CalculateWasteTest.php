@@ -42,8 +42,8 @@ class CalculateWasteTest extends TestCase
         $calculateWaste->calculateMaxAreaBoxes($this->aAllHighTab, $this->aAllWidthTab, $this->quantityStubTubeTab);
         $actualAreaWalls = $calculateWaste->getAreaAllWallBoxes();
         $actualWaste = $calculateWaste->getAreaWaste();
-        $this->assertEquals(3122500, $actualAreaWalls);
-        $this->assertEquals(17265, $actualWaste);
+        $this->assertEquals(3125000, $actualAreaWalls);
+        $this->assertEquals(15158, $actualWaste);
 
     }
 }
