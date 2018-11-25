@@ -35,8 +35,8 @@ class WallSizesTest extends TestCase
         $expectedFirstWidth = 250;
         $expectedFirstStubTub = 7;
         $expectSizeTab = count($allBoxesTab) * 7;
-        $wallSizes = new WallSizes($this->box);
-        $wallSizes->createTabsWithSizes();
+        $wallSizes = new WallSizes();
+        $wallSizes->createTabsWithSizes($allBoxesTab);
         $highTab = $wallSizes->getTabWithHighSize();
         $widthTab = $wallSizes->getTabWithWidthSize();
         $stubTubeTab = $wallSizes->getTabWithQuantityStubTube();
@@ -53,8 +53,9 @@ class WallSizesTest extends TestCase
     public function testCreateTabsFromEmptyTableWithBoxes()
     {
         $this->expectException("\InvalidArgumentException");
-        $wallSizes = new WallSizes($this->box);
-        $wallSizes->createTabsWithSizes();
+        $allBoxesTab = [];
+        $wallSizes = new WallSizes();
+        $wallSizes->createTabsWithSizes($allBoxesTab);
         $this->fail("add boxes beforehand");
     }
 }

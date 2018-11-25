@@ -14,36 +14,32 @@ class WallSizes
     private $tabWithHighSize = [];
     private $tabWithWidthSize = [];
     private $tabWithQuantityStubTube = [];
-    private $box;
 
     /**
      * WallSizes constructor.
-     * @param $box
      */
-    public function __construct(Box $box)
+    public function __construct()
     {
-        $this->box = $box;
     }
 
     /**
-     *
+     * @param array $tabWithBoxes - table with the dimensions of boxes to be placed on the sheet.
      */
-    public function createTabsWithSizes(): void
+    public function createTabsWithSizes(array $tabWithBoxes): void
     {
-        $tabWithBoxes = $this->box->getTabWithBoxes();
         if (empty($tabWithBoxes)) {
             throw new \InvalidArgumentException("add boxes beforehand");
         }
-        $allKeysTab = $this->getTabWithAllKeys($tabWithBoxes);
-        $this->createTablesUsingKeysTable($tabWithBoxes, $allKeysTab);
+
+        $this->createTablesUsingKeys($tabWithBoxes);
     }
 
     /**
-     * @param array $tabWithBoxes -
-     * @param array $allKeysTab
+     * @param array $tabWithBoxes - table with the dimensions of boxes to be placed on the sheet.
      */
-    private function createTablesUsingKeysTable(array $tabWithBoxes, array $allKeysTab)
+    private function createTablesUsingKeys(array $tabWithBoxes)
     {
+        $allKeysTab = $this->getTabWithAllKeys($tabWithBoxes);
         $sizeTab = count($allKeysTab);
         $index = (int)($sizeTab / 2);
 
@@ -78,7 +74,6 @@ class WallSizes
                     $this->mergeTabs($tempOneSize, $counter);
                 }
             }
-
         }
     }
 
