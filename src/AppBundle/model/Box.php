@@ -44,6 +44,9 @@ class Box
             "quantityStubTube" => $quantityStubTube];
     }
 
+    /**
+     * check the dimension of the box walls.
+     */
     private function checkSides(int $wallAOfTheBoxHigh, int $wallAOfTheBoxWidth,
                                 int $wallBOfTheBoxHigh, int $wallBOfTheBoxWidth,
                                 int $wallCOfTheBoxHigh, int $wallCOfTheBoxWidth,
