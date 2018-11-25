@@ -19,15 +19,11 @@ class SizeChecker
     {
     }
 
-    public function checkSides(int $sideHigh, int $sideWidth): bool
+    public function checkSides(int $sideHigh, int $sideWidth): void
     {
         if ($sideHigh <= 0 | $sideWidth <= 0) {
             throw new \InvalidArgumentException("the side length must be greater than zero");
         }
-        if ($sideHigh >= $sideWidth) {
-            return true;
-        }
-        return false;
     }
 
 

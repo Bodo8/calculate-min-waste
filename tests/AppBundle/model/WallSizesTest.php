@@ -16,7 +16,6 @@ use Tests\Generators\BoxGenerator;
 class WallSizesTest extends TestCase
 {
     private $box;
-    private $allBoxesTab;
     private $sheetFormat;
     private $sizeChecker;
 
@@ -26,15 +25,16 @@ class WallSizesTest extends TestCase
         $this->sizeChecker = new SizeChecker();
         $this->sheetFormat->addSheetFormat(2500, 1250, $this->sizeChecker);
         $this->box = new Box();
-        BoxGenerator::generateBoxes($this->box);
-        $this->allBoxesTab = $this->box->getTabWithBoxes();
     }
 
     public function testGetTabWithBoxes()
     {
+        BoxGenerator::generateBoxes($this->box);
+        $allBoxesTab = $this->box->getTabWithBoxes();
         $expectedFirstSize = 600;
         $expectedFirstWidth = 250;
         $expectedFirstStubTub = 7;
+        $expectSizeTab = count($allBoxesTab) * 7;
         $wallSizes = new WallSizes($this->box);
         $wallSizes->createTabsWithSizes();
         $highTab = $wallSizes->getTabWithHighSize();
@@ -43,9 +43,18 @@ class WallSizesTest extends TestCase
         $actualFirstHighSize = $highTab[0];
         $actualFirstWidth = $widthTab[0];
         $actualFirstStubTub = $stubTubeTab[0];
+        $actualSizeTab = count($highTab) + count($widthTab) + count($stubTubeTab);
         $this->assertEquals($expectedFirstSize, $actualFirstHighSize);
         $this->assertEquals($expectedFirstWidth, $actualFirstWidth);
         $this->assertEquals($expectedFirstStubTub, $actualFirstStubTub);
+        $this->assertEquals($expectSizeTab, $actualSizeTab);
+    }
 
+    public function testCreateTabsFromEmptyTableWithBoxes()
+    {
+        $this->expectException("\InvalidArgumentException");
+        $wallSizes = new WallSizes($this->box);
+        $wallSizes->createTabsWithSizes();
+        $this->fail("add boxes beforehand");
     }
 }

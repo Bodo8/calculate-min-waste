@@ -31,12 +31,9 @@ class SheetFormat
      */
     public function addSheetFormat($sheetHigh, $sheetWidth, SizeChecker $sizeChecker): void
     {
+        $sizeChecker->checkSides($sheetHigh, $sheetWidth);
         $this->sheetHigh = $sheetHigh;
         $this->sheetWidth = $sheetWidth;
-        if (!$sizeChecker->checkSides($sheetHigh, $sheetWidth)) {
-            $this->setSheetHigh($sheetWidth);
-            $this->setSheetWeight($sheetHigh);
-        }
     }
 
     public function getSheetHigh(): int
@@ -44,22 +41,8 @@ class SheetFormat
         return $this->sheetHigh;
     }
 
-    /**
-     * @param mixed $sheetHigh
-     */
-    private function setSheetHigh($sheetHigh): void
-    {
-        $this->sheetHigh = $sheetHigh;
-    }
-
     public function getSheetWidth(): int
     {
         return $this->sheetWidth;
     }
-
-    private function setSheetWeight(int $sheetWeight): void
-    {
-        $this->sheetWidth = $sheetWeight;
-    }
-
 }

@@ -25,9 +25,15 @@ class WallSizes
         $this->box = $box;
     }
 
+    /**
+     *
+     */
     public function createTabsWithSizes(): void
     {
         $tabWithBoxes = $this->box->getTabWithBoxes();
+        if (empty($tabWithBoxes)) {
+            throw new \InvalidArgumentException("add boxes beforehand");
+        }
         $allKeysTab = $this->getTabWithAllKeys($tabWithBoxes);
         $this->createTablesUsingKeysTable($tabWithBoxes, $allKeysTab);
     }
