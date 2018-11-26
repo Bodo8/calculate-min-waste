@@ -78,4 +78,10 @@ class BoxGenerator
         }
 
     }
+
+    public static function getTabWithAllKeys(array $tabWithBoxes): array
+    {
+        $wallsTab = $tabWithBoxes[0];
+        return array_keys($wallsTab);
+    }
 }

@@ -46,7 +46,7 @@ class CalculateWasteTest extends TestCase
         $actualAreaWalls = $calculateWaste->getAreaAllWallBoxes();
         $actualWaste = $calculateWaste->getAreaWaste();
         $this->assertEquals(3125000, $actualAreaWalls);
-        $this->assertEquals(15158, $actualWaste);
+        $this->assertEquals(47671, $actualWaste);
     }
 
     public function testCalculateThreeBoxesField()
@@ -62,7 +62,7 @@ class CalculateWasteTest extends TestCase
         $actualAreaWalls = $calculateWaste->getAreaAllWallBoxes();
         $actualWaste = $calculateWaste->getAreaWaste();
         $this->assertEquals(85000, $actualAreaWalls);
-        $this->assertEquals(3041256, $actualWaste);
+        $this->assertEquals(3043952, $actualWaste);
     }
 
     public function testCalculateThreeBoxesWithZeroStubTube()

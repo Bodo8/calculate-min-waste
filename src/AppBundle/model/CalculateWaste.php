@@ -11,8 +11,10 @@ namespace model;
 
 class CalculateWaste
 {
-    //field stub tube(króćca) fi 50, result of the calculation: 25mm*3,1416.
-    const AREA_ONE_STUB_TUBE = 78.54;
+    /*
+     * area stub tube(króćca) fi 50, result of the calculation: 25mm*3,1416 kw.
+     */
+    const AREA_ONE_STUB_TUBE = 247;
     private $sheetFormat;
     private $areaWaste;
     private $areaAllWallBoxes;
@@ -172,7 +174,7 @@ class CalculateWaste
     }
 
     /**
-     * @return mixed
+     * @return mixed - waste area.
      */
     public function getAreaWaste(): int
     {
@@ -180,7 +182,7 @@ class CalculateWaste
     }
 
     /**
-     * @param mixed $areaWaste
+     * @param mixed $areaWaste - set waste area.
      */
     private function setAreaWaste($areaWaste): void
     {

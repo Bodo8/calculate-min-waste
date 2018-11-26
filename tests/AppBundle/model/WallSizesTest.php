@@ -27,14 +27,19 @@ class WallSizesTest extends TestCase
         $this->box = new Box();
     }
 
+    /**
+     *  array allBoxesTab is divide into parts depend on the quantity keys.
+     */
     public function testGetTabWithBoxes()
     {
         BoxGenerator::generateBoxes($this->box);
         $allBoxesTab = $this->box->getTabWithBoxes();
+        $allKeysTab = BoxGenerator::getTabWithAllKeys($allBoxesTab);
+        $sizeAllKeysTab = count($allKeysTab);
         $expectedFirstSize = 600;
         $expectedFirstWidth = 250;
         $expectedFirstStubTub = 7;
-        $expectSizeTab = count($allBoxesTab) * 7;
+        $expectSizeTab = count($allBoxesTab) * $sizeAllKeysTab;
         $wallSizes = new WallSizes();
         $wallSizes->createTabsWithSizes($allBoxesTab);
         $highTab = $wallSizes->getTabWithHighSize();
