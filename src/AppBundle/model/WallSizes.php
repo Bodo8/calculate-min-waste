@@ -40,40 +40,42 @@ class WallSizes
     private function createTablesUsingKeys(array $tabWithBoxes)
     {
         $allKeysTab = $this->getTabWithAllKeys($tabWithBoxes);
-        $sizeTab = count($allKeysTab);
-        $index = (int)($sizeTab / 2);
+        $sizeTabKeys = count($allKeysTab);
+        $index = (int)($sizeTabKeys / 2);
 
         for ($k = 0; $k < $index; $k++) {
-            $tempOneSize = [];
             $temp = $k;
 
-            for ($i = $temp; $i < count($allKeysTab) - 1; $i++) {
-                $key = $allKeysTab[$i];
+            for ($i = $temp; $i < $sizeTabKeys - 1; $i++) {
+                $keyWall = $allKeysTab[$i];
                 if ($temp == 2) {
-                    $key = $allKeysTab[$sizeTab - 1];
-                    $i = $sizeTab;
+                    $keyWall = $allKeysTab[$sizeTabKeys - 1];
+                    $i = $sizeTabKeys;
                 }
-
+                $this->createTabsWithOneDimensionOfWalls($tabWithBoxes, $keyWall, $k);
                 $i++;
-                $count = 0;
-                foreach ($tabWithBoxes as $size) {
-                    $tempOneSize[$count] = $size[$key];
-                    $count++;
-                }
-
-                if ($k == 0) {
-                    $counter = $k;
-                    $this->mergeTabs($tempOneSize, $counter);
-                }
-                if ($k == 1) {
-                    $counter = $k;
-                    $this->mergeTabs($tempOneSize, $counter);
-                }
-                if ($k == 2) {
-                    $counter = $k;
-                    $this->mergeTabs($tempOneSize, $counter);
-                }
             }
+        }
+    }
+
+    private function createTabsWithOneDimensionOfWalls(array $tabWithBoxes, string $keyWall, int $counter): void
+    {
+        $tempOneSize = [];
+
+        $count = 0;
+        foreach ($tabWithBoxes as $sizesWall) {
+            $tempOneSize[$count] = $sizesWall[$keyWall];
+            $count++;
+        }
+
+        if ($counter == 0) {
+            $this->mergeTabs($tempOneSize, $counter);
+        }
+        if ($counter == 1) {
+            $this->mergeTabs($tempOneSize, $counter);
+        }
+        if ($counter == 2) {
+            $this->mergeTabs($tempOneSize, $counter);
         }
     }
 
