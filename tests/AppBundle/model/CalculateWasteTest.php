@@ -36,7 +36,8 @@ class CalculateWasteTest extends TestCase
     public function testCalculateMaxAreaBoxes()
     {
         BoxGenerator::generateBoxes($this->box);
-        $this->wallSizes->createTabsWithSizes();
+        $allTabWithBoxes = $this->box->getTabWithBoxes();
+        $this->wallSizes->createTabsWithSizes($allTabWithBoxes);
         $aAllWidthTab = $this->wallSizes->getTabWithWidthSize();
         $aAllHighTab = $this->wallSizes->getTabWithHighSize();
         $quantityStubTubeTab = $this->wallSizes->getTabWithQuantityStubTube();
@@ -51,7 +52,8 @@ class CalculateWasteTest extends TestCase
     public function testCalculateThreeBoxesField()
     {
         BoxGenerator::generateThreeSmallBoxes($this->box);
-        $this->wallSizes->createTabsWithSizes();
+        $allTabWithBoxes = $this->box->getTabWithBoxes();
+        $this->wallSizes->createTabsWithSizes($allTabWithBoxes);
         $aAllWidthTab = $this->wallSizes->getTabWithWidthSize();
         $aAllHighTab = $this->wallSizes->getTabWithHighSize();
         $quantityStubTubeTab = $this->wallSizes->getTabWithQuantityStubTube();
@@ -66,7 +68,8 @@ class CalculateWasteTest extends TestCase
     public function testCalculateThreeBoxesWithZeroStubTube()
     {
         BoxGenerator::generateThreeSmallBoxesAnnZeroStubTube($this->box);
-        $this->wallSizes->createTabsWithSizes();
+        $allTabWithBoxes = $this->box->getTabWithBoxes();
+        $this->wallSizes->createTabsWithSizes($allTabWithBoxes);
         $aAllWidthTab = $this->wallSizes->getTabWithWidthSize();
         $aAllHighTab = $this->wallSizes->getTabWithHighSize();
         $quantityStubTubeTab = $this->wallSizes->getTabWithQuantityStubTube();
