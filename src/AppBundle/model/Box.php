@@ -50,24 +50,6 @@ class Box
             "quantityStubTube" => $quantityStubTube];
     }
 
-
-    /**
-     * check the dimension of the box walls.
-     */
-    private function checkSides(int $wallAOfTheBoxHigh, int $wallAOfTheBoxWidth,
-                                int $wallBOfTheBoxHigh, int $wallBOfTheBoxWidth,
-                                int $wallCOfTheBoxHigh, int $wallCOfTheBoxWidth,
-                                int $quantityStubTube): void
-    {
-        if ($wallAOfTheBoxHigh <= 0 | $wallAOfTheBoxWidth <= 0 |
-            $wallBOfTheBoxHigh <= 0 | $wallBOfTheBoxWidth <= 0 |
-            $wallCOfTheBoxHigh <= 0 | $wallCOfTheBoxWidth <= 0 |
-            $quantityStubTube < 0) {
-            throw new \InvalidArgumentException("the side length must be greater than zero,
-            only quantity stub tube can be 0");
-        }
-    }
-
     /**
      * @return array - tan with all boxes.
      */
