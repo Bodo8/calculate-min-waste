@@ -12,9 +12,9 @@ namespace model;
 class CalculateWaste
 {
     /*
-     * area stub tube(króćca) fi 50, result of the calculation: 25mm*3,1416 kw.
+     * area stub tube(króćca) fi 50, result of the calculation: 25mm * 3,1416 kw.
      */
-    const AREA_ONE_STUB_TUBE = 247;
+    const AREA_ONE_STUB_TUBE = 246.74;
     private $sheetFormat;
     private $areaWaste;
     private $areaAllWallBoxes;
@@ -43,7 +43,6 @@ class CalculateWaste
         $maxFieldWalls = $this->getAreaAllWallBoxes();
         $waste = ($sheetField - $maxFieldWalls) + $wasteWithStubTube;
         $this->setAreaWaste($waste);
-
     }
 
     private function calculateMaxFieldWalls(array $tabWithWallsField, int $sheetField)
@@ -73,7 +72,7 @@ class CalculateWaste
         }
     }
 
-    private function getStubTubeField(array $quantityStubTubeTab): int
+    private function getStubTubeField(array $quantityStubTubeTab): float
     {
         $quantityStubTubes = array_sum($quantityStubTubeTab);
         $stubTubesField = CalculateWaste::AREA_ONE_STUB_TUBE * $quantityStubTubes;
@@ -159,7 +158,7 @@ class CalculateWaste
     /**
      * @param $areaAllWall - tab with sum wall fields, all boxes.
      */
-    private function sumAreaAllWallBoxes($areaAllWall): void
+    private function sumAreaAllWallBoxes(int $areaAllWall): void
     {
         $sum = $this->getAreaAllWallBoxes() + $areaAllWall;
         $this->setAreaAllWallBoxes($sum);
@@ -176,7 +175,7 @@ class CalculateWaste
     /**
      * @return mixed - waste area.
      */
-    public function getAreaWaste(): int
+    public function getAreaWaste(): float
     {
         return $this->areaWaste;
     }
@@ -184,7 +183,7 @@ class CalculateWaste
     /**
      * @param mixed $areaWaste - set waste area.
      */
-    private function setAreaWaste($areaWaste): void
+    private function setAreaWaste(float $areaWaste): void
     {
         $this->areaWaste = $areaWaste;
     }

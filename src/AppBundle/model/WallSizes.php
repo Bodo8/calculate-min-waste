@@ -23,7 +23,7 @@ class WallSizes
     }
 
     /**
-     * @param array $tabWithBoxes - table with the dimensions of boxes to be placed on the sheet.
+     * @param array $tabWithBoxes - create table with the dimensions of boxes to be placed on the sheet.
      */
     public function createTabsWithSizes(array $tabWithBoxes): void
     {
@@ -103,7 +103,7 @@ class WallSizes
     }
 
     /**
-     * @return array
+     * @return array - tab with all wall heights.
      */
     public function getTabWithHighSize(): array
     {
@@ -111,7 +111,7 @@ class WallSizes
     }
 
     /**
-     * @param array $tabWithHighSize
+     * @param array - set $tabWithHighSize.
      */
     private function setTabWithHighSize(array $tabWithHighSize): void
     {
@@ -119,7 +119,7 @@ class WallSizes
     }
 
     /**
-     * @return array
+     * @return array - tab with all wall widths.
      */
     public function getTabWithWidthSize(): array
     {
@@ -127,7 +127,7 @@ class WallSizes
     }
 
     /**
-     * @param array $tabWithWidthSize
+     * @param array - set $tabWithWidthSize
      */
     private function setTabWithWidthSize(array $tabWithWidthSize): void
     {
@@ -135,7 +135,7 @@ class WallSizes
     }
 
     /**
-     * @return array
+     * @return array - tab with quantity stub tube.
      */
     public function getTabWithQuantityStubTube(): array
     {

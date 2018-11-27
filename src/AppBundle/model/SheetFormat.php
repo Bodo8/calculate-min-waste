@@ -29,7 +29,7 @@ class SheetFormat
      * @param $sheetWidth
      * @param SizeChecker $sizeChecker
      */
-    public function addSheetFormat($sheetHigh, $sheetWidth, SizeChecker $sizeChecker): void
+    public function addSheetFormat(int $sheetHigh, int $sheetWidth, SizeChecker $sizeChecker): void
     {
         $sizeChecker->checkSides($sheetHigh, $sheetWidth);
         $this->sheetHigh = $sheetHigh;
