@@ -28,6 +28,8 @@ class Box
      * @param int $wallCOfTheBoxHigh - wall height C one box.
      * @param int $wallCOfTheBoxWidth - wall width C one box.
      * @param int $quantityStubTube - quantity stub tube one box.
+     * @param SizeChecker $sizeChecker - object SizeChecker class.
+     * @param SheetFormat $sheetFormat - object SheetFormat class.
      */
     public function addBox(int $wallAOfTheBoxHigh, int $wallAOfTheBoxWidth,
                            int $wallBOfTheBoxHigh, int $wallBOfTheBoxWidth,
