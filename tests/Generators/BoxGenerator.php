@@ -10,9 +10,12 @@ namespace Tests\Generators;
 
 
 use Model\Box;
+use Model\SheetFormat;
+use model\SizeChecker;
 
 class BoxGenerator
 {
+
     private static $tabWithSizeBoxes = [600, 250, 100, 200, 100, 200, 7,
         300, 125, 50, 100, 50, 100, 8,
         1200, 500, 400, 200, 400, 200, 12, 300, 125, 100, 50, 100, 50, 9,
@@ -35,13 +38,17 @@ class BoxGenerator
     public static function generateBoxes(Box $box): void
     {
         $tabWithSizeBoxes = BoxGenerator::$tabWithSizeBoxes;
+        $sizeChecker = new SizeChecker();
+        $sheetFormat = new SheetFormat();
+        $sheetFormat->addSheetFormat(2500, 1200, $sizeChecker);
         $i = 0;
         $index = 0;
 
         while ($index < count($tabWithSizeBoxes) / 7) {
             $box->addBox($tabWithSizeBoxes[$i], $tabWithSizeBoxes[$i + 1],
                 $tabWithSizeBoxes[$i + 2], $tabWithSizeBoxes[$i + 3], $tabWithSizeBoxes[$i + 4],
-                $tabWithSizeBoxes[$i + 5], $tabWithSizeBoxes[$i + 6]);
+                $tabWithSizeBoxes[$i + 5], $tabWithSizeBoxes[$i + 6],
+                $sizeChecker, $sheetFormat);
             $i += 7;
             $index++;
         }
@@ -51,13 +58,17 @@ class BoxGenerator
     public static function generateThreeSmallBoxes(Box $box): void
     {
         $tabWithSizeBoxes = BoxGenerator::$tabWithThreeSmallBoxes;
+        $sizeChecker = new SizeChecker();
+        $sheetFormat = new SheetFormat();
+        $sheetFormat->addSheetFormat(2500, 1200, $sizeChecker);
         $i = 0;
         $index = 0;
 
         while ($index < count($tabWithSizeBoxes) / 7) {
             $box->addBox($tabWithSizeBoxes[$i], $tabWithSizeBoxes[$i + 1],
                 $tabWithSizeBoxes[$i + 2], $tabWithSizeBoxes[$i + 3], $tabWithSizeBoxes[$i + 4],
-                $tabWithSizeBoxes[$i + 5], $tabWithSizeBoxes[$i + 6]);
+                $tabWithSizeBoxes[$i + 5], $tabWithSizeBoxes[$i + 6],
+                $sizeChecker, $sheetFormat);
             $i += 7;
             $index++;
         }
@@ -66,13 +77,17 @@ class BoxGenerator
     public static function generateThreeSmallBoxesAnnZeroStubTube(Box $box): void
     {
         $tabWithSizeBoxes = BoxGenerator::$tabWithThreeSmallBoxesAndZeroStubTube;
+        $sizeChecker = new SizeChecker();
+        $sheetFormat = new SheetFormat();
+        $sheetFormat->addSheetFormat(2500, 1200, $sizeChecker);
         $i = 0;
         $index = 0;
 
         while ($index < count($tabWithSizeBoxes) / 7) {
             $box->addBox($tabWithSizeBoxes[$i], $tabWithSizeBoxes[$i + 1],
                 $tabWithSizeBoxes[$i + 2], $tabWithSizeBoxes[$i + 3], $tabWithSizeBoxes[$i + 4],
-                $tabWithSizeBoxes[$i + 5], $tabWithSizeBoxes[$i + 6]);
+                $tabWithSizeBoxes[$i + 5], $tabWithSizeBoxes[$i + 6],
+                $sizeChecker, $sheetFormat);
             $i += 7;
             $index++;
         }

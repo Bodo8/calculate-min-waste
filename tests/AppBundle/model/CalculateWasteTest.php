@@ -25,7 +25,7 @@ class CalculateWasteTest extends TestCase
         $this->sizeChecker = new SizeChecker();
         $this->sheetFormat = new SheetFormat();
         $this->box = new Box();
-        $this->wallSizes = new WallSizes($this->box);
+        $this->wallSizes = new WallSizes();
         $this->sheetFormat->addSheetFormat(2500, 1250, $this->sizeChecker);
     }
 

@@ -32,17 +32,24 @@ class Box
     public function addBox(int $wallAOfTheBoxHigh, int $wallAOfTheBoxWidth,
                            int $wallBOfTheBoxHigh, int $wallBOfTheBoxWidth,
                            int $wallCOfTheBoxHigh, int $wallCOfTheBoxWidth,
-                           int $quantityStubTube): void
+                           int $quantityStubTube, SizeChecker $sizeChecker,
+                           SheetFormat $sheetFormat): void
     {
-        $this->checkSides($wallAOfTheBoxHigh, $wallAOfTheBoxWidth,
+        $sizeChecker->checkSidesBox($wallAOfTheBoxHigh, $wallAOfTheBoxWidth,
             $wallBOfTheBoxHigh, $wallBOfTheBoxWidth,
             $wallCOfTheBoxHigh, $wallCOfTheBoxWidth, $quantityStubTube);
+
+        $sizeChecker->checkLengthOfWall($wallAOfTheBoxHigh, $wallAOfTheBoxWidth,
+            $wallBOfTheBoxHigh, $wallBOfTheBoxWidth,
+            $wallCOfTheBoxHigh, $wallCOfTheBoxWidth,
+            $sheetFormat);
 
         $this->tabWithBoxes[] = ["wallAOfTheBoxHigh" => $wallAOfTheBoxHigh, "wallAOfTheBoxWidth" => $wallAOfTheBoxWidth,
             "wallBOfTheBoxHigh" => $wallBOfTheBoxHigh, "wallBOfTheBoxWidth" => $wallBOfTheBoxWidth,
             "wallCOfTheBoxHigh" => $wallCOfTheBoxHigh, "wallCOfTheBoxWidth" => $wallCOfTheBoxWidth,
             "quantityStubTube" => $quantityStubTube];
     }
+
 
     /**
      * check the dimension of the box walls.
