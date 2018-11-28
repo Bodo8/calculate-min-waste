@@ -28,37 +28,28 @@ class Box
      * @param int $wallCOfTheBoxHigh - wall height C one box.
      * @param int $wallCOfTheBoxWidth - wall width C one box.
      * @param int $quantityStubTube - quantity stub tube one box.
+     * @param SizeChecker $sizeChecker - object SizeChecker class.
+     * @param SheetFormat $sheetFormat - object SheetFormat class.
      */
     public function addBox(int $wallAOfTheBoxHigh, int $wallAOfTheBoxWidth,
                            int $wallBOfTheBoxHigh, int $wallBOfTheBoxWidth,
                            int $wallCOfTheBoxHigh, int $wallCOfTheBoxWidth,
-                           int $quantityStubTube): void
+                           int $quantityStubTube, SizeChecker $sizeChecker,
+                           SheetFormat $sheetFormat): void
     {
-        $this->checkSides($wallAOfTheBoxHigh, $wallAOfTheBoxWidth,
+        $sizeChecker->checkSidesBox($wallAOfTheBoxHigh, $wallAOfTheBoxWidth,
             $wallBOfTheBoxHigh, $wallBOfTheBoxWidth,
             $wallCOfTheBoxHigh, $wallCOfTheBoxWidth, $quantityStubTube);
+
+        $sizeChecker->checkLengthOfWall($wallAOfTheBoxHigh, $wallAOfTheBoxWidth,
+            $wallBOfTheBoxHigh, $wallBOfTheBoxWidth,
+            $wallCOfTheBoxHigh, $wallCOfTheBoxWidth,
+            $sheetFormat);
 
         $this->tabWithBoxes[] = ["wallAOfTheBoxHigh" => $wallAOfTheBoxHigh, "wallAOfTheBoxWidth" => $wallAOfTheBoxWidth,
             "wallBOfTheBoxHigh" => $wallBOfTheBoxHigh, "wallBOfTheBoxWidth" => $wallBOfTheBoxWidth,
             "wallCOfTheBoxHigh" => $wallCOfTheBoxHigh, "wallCOfTheBoxWidth" => $wallCOfTheBoxWidth,
             "quantityStubTube" => $quantityStubTube];
-    }
-
-    /**
-     * check the dimension of the box walls.
-     */
-    private function checkSides(int $wallAOfTheBoxHigh, int $wallAOfTheBoxWidth,
-                                int $wallBOfTheBoxHigh, int $wallBOfTheBoxWidth,
-                                int $wallCOfTheBoxHigh, int $wallCOfTheBoxWidth,
-                                int $quantityStubTube): void
-    {
-        if ($wallAOfTheBoxHigh <= 0 | $wallAOfTheBoxWidth <= 0 |
-            $wallBOfTheBoxHigh <= 0 | $wallBOfTheBoxWidth <= 0 |
-            $wallCOfTheBoxHigh <= 0 | $wallCOfTheBoxWidth <= 0 |
-            $quantityStubTube < 0) {
-            throw new \InvalidArgumentException("the side length must be greater than zero,
-            only quantity stub tube can be 0");
-        }
     }
 
     /**
