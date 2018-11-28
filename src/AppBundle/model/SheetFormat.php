@@ -12,7 +12,7 @@ namespace Model;
 class SheetFormat
 {
 
-    private $sheetHigh;
+    private $sheetHeight;
     private $sheetWidth;
 
     /**
@@ -24,31 +24,37 @@ class SheetFormat
 
     /**
      * SheetFormat constructor.
-     * @param $sheetHigh
+     * @param $sheetHeight
      * @param $sheetWidth
      * @param SizeChecker $sizeChecker
      */
-    public function addSheetFormat(int $sheetHigh, int $sheetWidth, SizeChecker $sizeChecker): void
+    public function addSheetFormat(int $sheetHeight, int $sheetWidth, SizeChecker $sizeChecker): void
     {
-        $sizeChecker->checkSidesSheet($sheetHigh, $sheetWidth);
-        $this->sheetHigh = $sheetHigh;
+        $sizeChecker->checkSidesSheet($sheetHeight, $sheetWidth);
+        $this->sheetHeight = $sheetHeight;
         $this->sheetWidth = $sheetWidth;
-        $longSidesIsOk = $sizeChecker->checkLongSheet($sheetHigh, $sheetWidth);
+        $longSidesIsOk = $sizeChecker->checkLongSheet($sheetHeight, $sheetWidth);
         if (!$longSidesIsOk) {
-            $this->setSheetWidth($sheetHigh);
+            $this->setSheetWidth($sheetHeight);
             $this->setSheetHigh($sheetWidth);
         }
     }
 
-    public function getSheetHigh(): int
+    /**
+     * @return int - sheet height.
+     */
+    public function getSheetHeight(): int
     {
-        if ($this->sheetHigh === null) {
+        if ($this->sheetHeight === null) {
             throw new \InvalidArgumentException(
                 "please specify the size of the sheet first");
         }
-        return $this->sheetHigh;
+        return $this->sheetHeight;
     }
 
+    /**
+     * @return int - sheet width.
+     */
     public function getSheetWidth(): int
     {
         if ($this->sheetWidth === null) {
@@ -59,11 +65,11 @@ class SheetFormat
     }
 
     /**
-     * @param mixed $sheetHigh
+     * @param mixed $sheetHeight
      */
-    private function setSheetHigh($sheetHigh): void
+    private function setSheetHigh($sheetHeight): void
     {
-        $this->sheetHigh = $sheetHigh;
+        $this->sheetHeight = $sheetHeight;
     }
 
     /**
@@ -73,6 +79,4 @@ class SheetFormat
     {
         $this->sheetWidth = $sheetWidth;
     }
-
-
 }

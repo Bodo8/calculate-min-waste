@@ -27,7 +27,7 @@ class SheetFormatTest extends TestCase
         $sheet->addSheetFormat(2500, 1250, $this->sizeChecker);
         $expectSideHigh = 2500;
         $expectSideWidth = 1250;
-        $actualSideHigh = $sheet->getSheetHigh();
+        $actualSideHigh = $sheet->getSheetHeight();
         $actualSideWidth = $sheet->getSheetWidth();
         $this->assertEquals($expectSideHigh, $actualSideHigh);
         $this->assertEquals($expectSideWidth, $actualSideWidth);
@@ -39,7 +39,7 @@ class SheetFormatTest extends TestCase
         $sheet->addSheetFormat(1300, 2700, $this->sizeChecker);
         $expectSideHigh = 2700;
         $expectSideWidth = 1300;
-        $actualSideHigh = $sheet->getSheetHigh();
+        $actualSideHigh = $sheet->getSheetHeight();
         $actualSideWidth = $sheet->getSheetWidth();
         $this->assertEquals($expectSideHigh, $actualSideHigh);
         $this->assertEquals($expectSideWidth, $actualSideWidth);
@@ -57,7 +57,7 @@ class SheetFormatTest extends TestCase
     {
         $this->expectException("\InvalidArgumentException");
         $sheet = new SheetFormat();
-        $high = $sheet->getSheetHigh();
+        $high = $sheet->getSheetHeight();
         $this->fail("please specify the size of the sheet first");
     }
 

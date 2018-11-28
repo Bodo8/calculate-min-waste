@@ -149,6 +149,4 @@ class WallSizes
     {
         $this->tabWithQuantityStubTube = $tabWithQuantityStubTube;
     }
-
-
 }

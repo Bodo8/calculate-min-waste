@@ -53,7 +53,7 @@ class Box
     }
 
     /**
-     * @return array - tan with all boxes.
+     * @return array - tab with all boxes.
      */
     public function getTabWithBoxes(): array
     {

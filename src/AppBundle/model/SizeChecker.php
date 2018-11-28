@@ -83,7 +83,7 @@ class SizeChecker
                                       int $wallCOfTheBoxHigh, int $wallCOfTheBoxWidth,
                                       SheetFormat $sheetFormat): void
     {
-        $sheetHighLength = $sheetFormat->getSheetHigh();
+        $sheetHighLength = $sheetFormat->getSheetHeight();
         if (isset($sheetHighLength)) {
             if ($wallAOfTheBoxHigh > $sheetHighLength | $wallAOfTheBoxWidth > $sheetHighLength |
                 $wallBOfTheBoxHigh > $sheetHighLength | $wallBOfTheBoxWidth > $sheetHighLength |
