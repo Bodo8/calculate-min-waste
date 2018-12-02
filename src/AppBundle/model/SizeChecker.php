@@ -84,10 +84,20 @@ class SizeChecker
                                       SheetFormat $sheetFormat): void
     {
         $sheetHighLength = $sheetFormat->getSheetHeight();
-        if (isset($sheetHighLength)) {
-            if ($wallAOfTheBoxHigh > $sheetHighLength | $wallAOfTheBoxWidth > $sheetHighLength |
-                $wallBOfTheBoxHigh > $sheetHighLength | $wallBOfTheBoxWidth > $sheetHighLength |
-                $wallCOfTheBoxHigh > $sheetHighLength | $wallCOfTheBoxWidth > $sheetHighLength) {
+        $sheetWidthLength = $sheetFormat->getSheetWidth();
+        $tabTempWithSizeWalls = [$wallAOfTheBoxHigh, $wallAOfTheBoxWidth,
+            $wallBOfTheBoxHigh, $wallBOfTheBoxWidth,
+            $wallCOfTheBoxHigh, $wallCOfTheBoxWidth];
+
+        for ($i = 0; $i < count($tabTempWithSizeWalls) - 1; $i++) {
+            $highWall = $tabTempWithSizeWalls[$i];
+            $widthWall = $tabTempWithSizeWalls[$i + 1];
+            $i++;
+
+            if ($highWall > $sheetHighLength | $widthWall > $sheetHighLength) {
+                throw new \InvalidArgumentException(
+                    "the size of the box must be smaller than the size of the sheet");
+            } elseif ($highWall > $sheetWidthLength && $widthWall > $sheetWidthLength) {
                 throw new \InvalidArgumentException(
                     "the size of the box must be smaller than the size of the sheet");
             }

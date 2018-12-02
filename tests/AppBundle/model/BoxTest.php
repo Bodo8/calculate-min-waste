@@ -70,4 +70,13 @@ class BoxTest extends TestCase
         than the size of the sheet");
     }
 
+    public function testAddBoxWith2000LongWall()
+    {
+        $this->expectException("\InvalidArgumentException");
+        $this->box->addBox(200, 300,
+            200, 300, 2000, 2000, 5,
+            $this->sizeChecker, $this->sheetFormat);
+        $this->fail("the size of the box must be smaller 
+        than the size of the sheet");
+    }
 }
