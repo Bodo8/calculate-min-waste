@@ -35,6 +35,7 @@ class WallSizes
     }
 
     /**
+     * This function create tabs with High Size, Width Size, Quantity StubTube.
      * @param array $tabWithBoxes - table with the dimensions of boxes to be placed on the sheet.
      */
     private function createTablesUsingKeys(array $tabWithBoxes)
@@ -58,6 +59,12 @@ class WallSizes
         }
     }
 
+    /**
+     * The function searches for all wall sizes with the same key, example: $wallAOfTheBoxHigh.
+     * @param array $tabWithBoxes - tab with boxes.
+     * @param string $keyWall - key, example: $wallAOfTheBoxHigh.
+     * @param int $counter - number key from the tab with all the keys.
+     */
     private function createTabsWithOneDimensionOfWalls(array $tabWithBoxes, string $keyWall, int $counter): void
     {
         $tempOneSize = [];
@@ -85,6 +92,11 @@ class WallSizes
         return array_keys($wallsTab);
     }
 
+    /**
+     * This function merge tabs with High Size, Width Size, Quantity StubTube.
+     * @param array $oneSizesTab - tab with one size.
+     * @param int $counter - number determines witch tab wil be merge.
+     */
     private function mergeTabs(array $oneSizesTab, int $counter): void
     {
         if ($counter == 0) {
